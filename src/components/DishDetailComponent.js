@@ -22,10 +22,10 @@ class DishDetail extends Component {
 					<h4>Comments</h4>
 						{dish.comments.map((comment, i) => {
 							return (
-								<div key = {comment.id}>
-									<p>{comment.comment}</p>
-									<p>{`-- ${comment.author} , ${comment.date}`}</p>
-								</div>
+								<ul className ='list-unstyled' key = {comment.id}>
+									<li><p>{comment.comment}</p>
+									<p>{`-- ${comment.author} , ${comment.date}`}</p></li>
+								</ul>
 							)
 						})}			
 					</div>
