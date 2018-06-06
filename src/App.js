@@ -7,7 +7,7 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter basename='react-assignment-1'>
+      <BrowserRouter basename = '/react-assignment-1'>
         <div>
           <Main />
         </div>
