@@ -1,5 +1,9 @@
-import React from 'react'
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap'
+import React, { Component } from 'react'
+import { Card, CardImg, CardImgOverlay, 
+		 CardText, CardBody, CardTitle, 
+		 Breadcrumb, BreadcrumbItem, Button,
+		 Modal, ModalHeader
+	   } from 'reactstrap'
 import { Link } from 'react-router-dom'
 
 
@@ -19,6 +23,7 @@ function RenderDish({dish}) {
 		}
 	}
 
+
 function RenderComments({comments}) {
 		if(comments!= null){
 			return (
@@ -35,11 +40,14 @@ function RenderComments({comments}) {
 						)
 					})					
 				}
+				<CommentForm/>
 				</div>
 		
 			)
 		}
 	}
+
+
 
 const DishDetail = (props) => {
 		const dish = props.dish
@@ -70,6 +78,42 @@ const DishDetail = (props) => {
 			</div>
 		)
 	}
+
+
+
+
+class CommentForm extends Component {
+	
+	constructor (props) {
+		super (props)
+		this.state = {
+			isModalOpen: false
+		}
+		this.toggleModal = this.toggleModal.bind(this)
+		this.handleAddComment = this.handleAddComment.bind(this)
+	}
+
+	toggleModal () {
+		this.setState ({
+			isModalOpen: !this.state.isModalOpen
+		})
+	}
+
+	handleAddComment () {
+
+	}
+
+	render(){
+		return (
+			<div>
+				<Button outline onClick = {this.handleAddComment}><span className = 'fa fa-pencil fa-lg'></span> Add Comment</Button>
+				<Modal isOpen = {this.state.isModalOpen} toggle = {this.toggleModal} >
+					<ModalHeader toggle = {this.toggleModal} ></ModalHeader>
+				</Modal>
+			</div>
+		)
+	}
+}
 
 
 export default DishDetail 
