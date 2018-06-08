@@ -3,6 +3,12 @@ import { Breadcrumb, BreadcrumbItem, Button, Label, Input, Col, Row } from 'reac
 import { Link } from 'react-router-dom'
 import { Control, LocalForm, Errors } from 'react-redux-form'
 
+const required = (val) => val && val.length 
+const maxLength = (len) => (val) => !(val) || (val.length < len)
+const minLength = (len) => (val) => (val) && (val.length  >= len)
+const isNumber = (val) => !isNaN(Number(val))
+const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z0-9]{2,4}$/i.test(val)
+
 class Contact extends Component {
 
     constructor (props) {
@@ -67,28 +73,91 @@ class Contact extends Component {
                                     <Col md = {10}>
                                         <Control.text model ='.firstname' id ='firstname' name = 'firstname'
                                                className = 'form-control'
-                                               onChange = {this.handleInputChange} placeholder = 'Michelle'  />
+                                               placeholder = 'Michelle'  
+                                               validators = {{
+                                                    required,
+                                                    minLength: minLength(3),
+                                                    maxLength: maxLength(15)
+                                               }}
+                                        />
+                                        <Errors 
+                                            className ='text-danger'
+                                            model = '.firstname'
+                                            show ='touched'
+                                            messages = {{
+                                                required: 'Required',
+                                                minLength: 'Must be greater than 2 characters',
+                                                maxLength: 'Must be 15 characters or less'
+                                            }}
+                                        />
                                     </Col>                                   
                                 </Row>
                                 <Row className = 'form-group'>
                                     <Label htmlFor = 'lastname' md = {2}>Last Name</Label> 
                                     <Col md = {10}>
                                         <Control.text model='.lastname' id='lastname' name = 'lastname'
-                                               className = 'form-control' />                                          
+                                               className = 'form-control'   
+                                               validators = {{
+                                                    required,
+                                                    minLength: minLength(3),
+                                                    maxLength: maxLength(15)
+                                               }}
+                                        />
+                                        <Errors 
+                                            className ='text-danger'
+                                            model = '.lastname'
+                                            show ='touched'
+                                            messages = {{
+                                                required: 'Required',
+                                                minLength: 'Must be greater than 2 characters',
+                                                maxLength: 'Must be 15 characters or less'
+                                            }}
+                                        />                               
                                     </Col>                                   
                                 </Row>
                                 <Row className = 'form-group'>
                                     <Label htmlFor = 'telnum' md = {2}>Contact No. </Label> 
                                     <Col md = {10}>
                                         <Control.text model='.telnum' id='telnum' name = 'telnum' 
-                                            className = 'form-control'/>                                         
+                                            className = 'form-control' 
+                                            validators = {{
+                                                required, 
+                                                minLength: minLength(3),
+                                                maxLength: maxLength(10),
+                                                isNumber
+                                            }}/>    
+                                        <Errors 
+                                            className ='text-danger'
+                                            model = '.telnum'
+                                            show ='touched'
+                                            messages = {{
+                                                required: 'Required',
+                                                minLength: 'Must be greater than 2 numbers',
+                                                maxLength: 'Must be 10 numbers or less',
+                                                isNumber: 'Must be a number'
+                                            }}
+                                        />                                         
                                     </Col>                                   
                                 </Row>
                                 <Row className = 'form-group'>
                                     <Label htmlFor = 'email' md = {2}>E-mail</Label> 
                                     <Col md = {10}>
                                         <Control.text model='.email' id='email' name = 'email' 
-                                               placeholder = '123@gmail.com' className = 'form-control' />                                        
+                                               placeholder = '123@gmail.com' className = 'form-control' 
+                                               validators = {{
+                                                    required,
+                                                    validEmail
+                                               }}
+                                        />                    
+                                        <Errors 
+                                            className = 'text-danger'
+                                            model = '.email'
+                                            show = 'touched'
+                                            messages = {{
+                                                required: 'required',
+                                                validEmail: 'Invalid email address'
+                                            }}
+                                        />                    
                                     </Col>                                   
                                 </Row>    
                                 <Row className = 'form-group'>
