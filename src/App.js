@@ -12,7 +12,7 @@ class App extends Component {
   render() {
     return (
       <Provider store = {store}>
-        <BrowserRouter basename = '/react-assignment-1'>
+        <BrowserRouter>
           <div>
             <Main />
           </div>
