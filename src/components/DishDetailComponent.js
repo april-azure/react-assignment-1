@@ -26,7 +26,7 @@ function RenderDish({dish}) {
 	}
 
 
-function RenderComments({comments, addComment, dishId}) {
+function RenderComments({comments, postComment, dishId}) {
 		if(comments!= null){
 			return (
 				<div className = 'col-12 col-md-5 m-1'>
@@ -42,7 +42,7 @@ function RenderComments({comments, addComment, dishId}) {
 						)
 					})					
 				}
-				<CommentForm dishId = {dishId} addComment = {addComment}/>
+				<CommentForm dishId = {dishId} postComment = {postComment}/>
 				</div>
 		
 			)
@@ -91,7 +91,7 @@ const DishDetail = (props) => {
 						<RenderDish dish = {props.dish} />
 						<RenderComments 
 							comments = {props.comments}
-							addComment = {props.addComment}
+							postComment = {props.postComment}
 							dishId = {props.dish.id}
 						/>			    	
 			    	</div>
@@ -113,7 +113,7 @@ class CommentForm extends Component {
 			isModalOpen: false
 		}
 		this.toggleModal = this.toggleModal.bind(this)
-		this.handleAddComment = this.handleAddComment.bind(this)
+		this.handlepostComment = this.handlepostComment.bind(this)
 	}
 
 	toggleModal () {
@@ -122,9 +122,9 @@ class CommentForm extends Component {
 		})
 	}
 
-	handleAddComment (values) {
+	handlepostComment (values) {
 		this.toggleModal()
-		this.props.addComment(parseInt(this.props.dishId), values.rating, values.name, values.comment)
+		this.props.postComment(parseInt(this.props.dishId), values.rating, values.name, values.comment)
 	}
 
 	render(){
@@ -133,7 +133,7 @@ class CommentForm extends Component {
 				<Button outline onClick = {this.toggleModal}><span className = 'fa fa-pencil fa-lg'></span> Add Comment</Button>
 				<Modal isOpen = {this.state.isModalOpen} toggle = {this.toggleModal} >
 					<ModalHeader toggle = {this.toggleModal} >Submit Comment</ModalHeader>
-					<LocalForm  className = 'container' onSubmit = {(values) => {this.handleAddComment(values)} }>
+					<LocalForm  className = 'container' onSubmit = {(values) => {this.handlepostComment(values)} }>
 						<ModalBody>
 							<Row className = 'form-group'>
 								<Col sm = {12}><Label htmlFor = 'rating'>Rating</Label></Col>
